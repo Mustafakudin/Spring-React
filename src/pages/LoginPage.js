@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'  // rcc diyerek olusturduk
 import Input from '../components/Input';
 import { useTranslation} from 'react-i18next';
 import ButtonWithProgress from '../components/ButtonWithProgress';  
-import { withApiProgress } from '../shared/apiProgress';
+import { useApiProgress } from '../shared/apiProgress';
 import {useDispatch} from 'react-redux';
 import { loginHandler  } from '../redux/authActions';
 
@@ -41,7 +41,9 @@ const LoginPage =props => {
      
     }
     const{t} = useTranslation();
-    const{pendingApiCall} = props;
+
+    const pendingApiCall =useApiProgress('/api/1.0/auth');
+
     const buttonEnabled = username && password; 
     return (
       <div className="container">
@@ -65,4 +67,4 @@ const LoginPage =props => {
 }
 
 
-export default withApiProgress(LoginPage,'/api/1.0/auth'); // bunu yapmamızın sebebi ise ....
+export default LoginPage; // bunu yapmamızın sebebi ise ....

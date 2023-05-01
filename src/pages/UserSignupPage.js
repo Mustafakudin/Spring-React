@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../components/Input';
 import {useTranslation} from 'react-i18next'; 
 import ButtonWithProgress from '../components/ButtonWithProgress';                                              
-import { withApiProgress } from '../shared/apiProgress';
+import { useApiProgress } from '../shared/apiProgress';
 import{useDispatch} from 'react-redux';
 import { signupHandler } from '../redux/authActions';
 // yenilendi calisir durumda
@@ -47,7 +47,9 @@ const  UserSignupPage = (props) =>{
     };
             const{t} = useTranslation();
             const{username:usernameError,displayName:displayNameError ,password:passwordError}=errors;
-            const{pendingApiCall} =props;
+            const pendingApiCallSignup = useApiProgress('/api/1.0/users');
+            const pendingApiCallLogin = useApiProgress('/api/1.0/auth');
+            const pendingApiCall = pendingApiCallSignup || pendingApiCallLogin;
             let passwordRepeatError;
             if(form.password!==form.passwordRepeat){
                 passwordRepeatError=t('Password mismatch');
@@ -77,7 +79,5 @@ const  UserSignupPage = (props) =>{
              
 };
  
-const UserSignupPageWithApiProgressForSignupRequest=withApiProgress(UserSignupPage , "/api/1.0/users") // bu sayfa sadece api/1.0 request takip ediyordu
-const UserSignupPageWithApiProgressForAuthRequest=withApiProgress(UserSignupPageWithApiProgressForSignupRequest,'/api/1.0/auth')
 
-export default UserSignupPageWithApiProgressForAuthRequest;
+export default UserSignupPage;

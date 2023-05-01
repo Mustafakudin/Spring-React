@@ -1,9 +1,9 @@
 import React from 'react'
 import logo from '../assets/Ribble-Logo.png';
 import { Link } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 //import { Authentication } from '../shared/AuthenticationContext';
-import { connect } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { logoutSuccess } from '../redux/authActions';
 //import { Authentication } from '../shared/AuthenticationContext';
 
@@ -23,7 +23,19 @@ const Topbar = (props) => {
   //this.props.dispatch( logoutSuccess());  
 
 //}
-  const {t,username,isLoggedIn,onLogoutSuccess} =props;  // burada component üstü vs oldugundan dolayı burada direkt props alaım diyoruz 
+  const {t} = useTranslation();
+  const {username,isLoggedIn} =useSelector((store)=>({
+    
+      isLoggedIn:store.isLoggedIn,
+      username:store.username
+    }));
+  
+  const dispatch=useDispatch();
+  const onLogoutSuccess =() =>{
+    dispatch(logoutSuccess());
+  }
+
+  //const {onLogoutSuccess} =props;  // burada component üstü vs oldugundan dolayı burada direkt props alaım diyoruz 
  
     //const{state ,onLogoutSuccess}=this.context; // bu state authencontexteki state  ve logout bu
   
@@ -63,7 +75,7 @@ const Topbar = (props) => {
                   <nav className='navbar navbar-light container navbar-expand'> 
                        <Link className="navbar-brand" to="/">
                           <img src={logo} width="150" alt='Ribble Logo '/>
-                        Ribble
+                        
                        </Link>
                       {links}
                   </nav>
@@ -72,20 +84,20 @@ const Topbar = (props) => {
  // render () {   // ,isLoggedIn,username ,onLogoutSuccess bunları daha burada kullanmıyoruz ondan cıkardım
    //         }
 }
-const TopBarWithTranslation = withTranslation()(Topbar);
+//const TopBarWithTranslation = withTranslation()(Topbar);
 
-const mapStateToProps= store =>{
-  return{
-    isLoggedIn:store.isLoggedIn,
-    username:store.username
-  }; 
-};
+//const mapStateToProps= store =>{
+  //return{
+    //isLoggedIn:store.isLoggedIn,
+    //username:store.username
+  //}; 
+//};
 
-const mapDispatchToProps = dispatch =>{
- return {
-    onLogoutSuccess :()=>dispatch(logoutSuccess())
+//const mapDispatchToProps = dispatch =>{
+ //return {
+   // onLogoutSuccess :()=>dispatch(logoutSuccess())
     
-  };
-};
+ // };
+//};
 
-export default connect(mapStateToProps,mapDispatchToProps)(TopBarWithTranslation);
+export default Topbar;
