@@ -1,6 +1,6 @@
 import i18n from 'i18next' ;
 import {initReactI18next} from 'react-i18next';
-import LoginPage from './pages/LoginPage';
+
 
 i18n.use(initReactI18next).init({
     resources: {  
@@ -14,7 +14,12 @@ i18n.use(initReactI18next).init({
           'Password Repeat': 'Password Repeat',
           Login:"Login",
           Logout:"Logout",
-          Signup :"Signup"
+          Signup :"Signup",
+          Users :'Users',
+          Next : 'next >',
+          Previous : '< previous',
+          'Load failure' : 'Load failure',
+          'User not found ':'User not found '
         }
       },
       tr: {
@@ -27,7 +32,12 @@ i18n.use(initReactI18next).init({
           'Password Repeat': 'Şifreyi Tekrarla',
           Login :"Sisteme gir",
           Logout:"Çık",
-          Signup :"Kullanıcı gir"
+          Signup :"Kullanıcı gir",
+          Users : 'Kullanıcılar',
+          Next: 'Sonraki >',
+          Previous : '< önceki',
+          'Load failure' : 'Liste alınamadı',
+          'User not found ' : 'Kullanıcı bulunamadı'
         }
       }
     },

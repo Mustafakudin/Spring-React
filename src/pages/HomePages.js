@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-
-export default class HomePages extends Component {  // kullanıcıya özel bi sayfa 
-  render() {
+import React from 'react'
+import UserList from '../components/UserList'
+const  HomePages=() =>{  // kullanıcıya özel bi sayfa 
     return (
       <div className='container'>
-        HomePages
+        <UserList />
         </div>
-    )
+    ) 
   }
-}
+export default HomePages();

@@ -2,6 +2,7 @@ import { createStore,applyMiddleware ,compose} from 'redux';
 import authReducer from './authReducer';
 import SecureLs from 'secure-ls';
 import thunk from 'redux-thunk';
+import { setAuthorizationHeader } from '../api/apiCalls';
 const secureLs = new SecureLs();
 
 const getStateFromStorage =() =>{ 
@@ -26,12 +27,14 @@ const updateStateInStorage=newState =>{
 
 }
 const consfigureStore=() =>{
-    
+    const initialState = getStateFromStorage();
+    setAuthorizationHeader(initialState);
      const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     //,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    const store = createStore(authReducer,getStateFromStorage(),applyMiddleware(thunk ));
+    const store = createStore(authReducer,initialState,composeEnhancers(applyMiddleware(thunk))); // birinici authReducuer fonksiyonumuz ikinicisi başlangic stateimiz 3. redux toolstan buldugmuz bir şey 
     store.subscribe(() =>{
         updateStateInStorage(store.getState());
+        setAuthorizationHeader(store.getState());
     })
     return store;
 };

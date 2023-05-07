@@ -17,10 +17,9 @@ const  UserSignupPage = (props) =>{
     const dispatch =useDispatch();
 
     const  onChange =(event) =>{    
-
     const {name , value } = event.target;
-    setErrors((previousErrors) => ({...previousErrors,[name]:undefined}));  
-    setForm((previousForm) => ({...previousForm,[name]:value })) 
+    setErrors((previousErrors) => ({...previousErrors,[name]:undefined}));       // cevaben suan değiştirilen field undefiend döner diyelim
+    setForm((previousForm) => ({...previousForm,[name]:value }))   // onceki forumn copyasını alıp  ve sonra suan degismekte olan field için yeni value  veririz 
     };
     const onClickSignUp  = async (event) =>{ 
         event.preventDefault(); 
@@ -35,7 +34,7 @@ const  UserSignupPage = (props) =>{
         };
          
            try{
-            await dispatch(signupHandler(body)); 
+            await dispatch(signupHandler(body));  // signup olduktan sonra push olarak anasayfaya gitsin diyoruz burada  signupHandler authActionstan getirtik
             push("/")
          }catch(error){
             if(error.response.data.validationErrors){ 
@@ -46,12 +45,12 @@ const  UserSignupPage = (props) =>{
         } 
     };
             const{t} = useTranslation();
-            const{username:usernameError,displayName:displayNameError ,password:passwordError}=errors;
+            const{username:usernameError,displayName:displayNameError ,password:passwordError}=errors; // errorsten username alıyormus gibi kullanıcagımız söylüyorz 
             const pendingApiCallSignup = useApiProgress('/api/1.0/users');
             const pendingApiCallLogin = useApiProgress('/api/1.0/auth');
             const pendingApiCall = pendingApiCallSignup || pendingApiCallLogin;
-            let passwordRepeatError;
-            if(form.password!==form.passwordRepeat){
+            let passwordRepeatError;   // değişken oldugu için let 
+            if(form.password!==form.passwordRepeat){ 
                 passwordRepeatError=t('Password mismatch');
             }
         return(

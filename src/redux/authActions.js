@@ -16,7 +16,7 @@ export const loginSuccess=authState =>{
 
 }
 
-export const loginHandler=  credentials =>{
+export const loginHandler=  credentials =>{  // HEM LOGİN YAPMAK İÇİN HEMDE LOGİNSSUCCESS DÖNDÜRMEK İÇİN 
     return async function(dispatch){
     const response =await login(credentials);
          const authState = {
@@ -28,11 +28,11 @@ export const loginHandler=  credentials =>{
         };
 };
 
-export const signupHandler =user =>{
+export const signupHandler =user =>{  // burada signup olduktan sonra logine de request atabiliyor olmamız lazım ondan dolau 
     return async  function(dispatch){
-        const response =await signup(user);
-        await dispatch(loginHandler(user));
-        return response;
+        const response =await signup(user);   // 
+        await dispatch(loginHandler(user));  // dispatch aldıktan sonra biraz beklememiz lazım ondan awati dedik
+        return response;            // her şey success se repsonse bırakalım artık işlemleri
     };
 
 };

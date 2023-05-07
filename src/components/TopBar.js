@@ -8,25 +8,11 @@ import { logoutSuccess } from '../redux/authActions';
 //import { Authentication } from '../shared/AuthenticationContext';
 
 
-const Topbar = (props) => {
-  //  const context =useContext(Authentication);
-
-//   state={
-  //    isLoggedIn:false ,    // burada loginde girdigimiz datalar topbarı tetiklesin diye bir üst component olan app.js tasıdık 
-    //  username:"user1"
-   //};
-
- //  static contextType=Authentication;
-
- //onClickLogout=() =>{
-  // const action ={type:'Logout-success'};
-  //this.props.dispatch( logoutSuccess());  
-
-//}
+const Topbar = props => {
   const {t} = useTranslation();
-  const {username,isLoggedIn} =useSelector((store)=>({
-    
-      isLoggedIn:store.isLoggedIn,
+  const {username,isLoggedIn} =useSelector((store)=>({  // mapstoPropsun aynısını  
+
+      isLoggedIn:store.isLoggedIn, // cevaben ıslog ve username donup bu objeyi donmus olucak
       username:store.username
     }));
   
@@ -81,23 +67,7 @@ const Topbar = (props) => {
                   </nav>
                </div>
               );
- // render () {   // ,isLoggedIn,username ,onLogoutSuccess bunları daha burada kullanmıyoruz ondan cıkardım
-   //         }
 }
-//const TopBarWithTranslation = withTranslation()(Topbar);
 
-//const mapStateToProps= store =>{
-  //return{
-    //isLoggedIn:store.isLoggedIn,
-    //username:store.username
-  //}; 
-//};
-
-//const mapDispatchToProps = dispatch =>{
- //return {
-   // onLogoutSuccess :()=>dispatch(logoutSuccess())
-    
- // };
-//};
 
 export default Topbar;

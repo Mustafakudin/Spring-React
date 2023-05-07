@@ -6,18 +6,18 @@ import { useApiProgress } from '../shared/apiProgress';
 import {useDispatch} from 'react-redux';
 import { loginHandler  } from '../redux/authActions';
 
-const LoginPage =props => {
+const LoginPage =props => {  // hhooks için const cevirdik  
  
-  const [username ,setUsername] =useState();
+  const [username ,setUsername] =useState(); // bu useState herhani bir değer için başlangıc değer atabiliriz ilk paramatere değişkenin adı ikinci parametre o değişkeni güncelleyecek fonksiyon adı
   const [password,setPassword] = useState();
   const [error,setError] =useState();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // burada tanımlamamız lazım aksi durumda bir hata alıyoruz 
 
-  useEffect(() =>{
-    setError(undefined);
-  },[username,password]);
+  useEffect(() =>{      // bir etki oldugunda tetikelencek fonskiyon// iki parametre alıyor ilki cagıralacak fonskiyon ikincisi bu fonksiyon cagrılmasını tetikeylecek depencdy listesi
+    setError(undefined);  // erroru sil
+  },[username,password]);  // username veya password bir değişim olursa 
    
-    const onClickLogin = async event =>{  
+    const onClickLogin = async event =>{   
       event.preventDefault();
      
       const creds = {
@@ -26,21 +26,21 @@ const LoginPage =props => {
       };
       const{history} = props;
       const{push} =history
-      setError(undefined);
+      setError(undefined); // burada error güncel halini tutnus oluyoruz 
      
       try{
-          await dispatch(loginHandler(creds));
+        await dispatch(loginHandler(creds));
       
       push('/');
       }
       catch(apiError){
-         setError(apiError.response.data.message);
+         setError(apiError.response.data.message);  // bunu ekleyerek browserda hata mesajını görmemzi saglıyor
      
       }
 
      
     }
-    const{t} = useTranslation();
+    const{t} = useTranslation();// sebebi daha basit olması cunku extra bir rapping işlemine yani exportta kullanmdık high herder cmoponentle sarmıs olmadık yani
 
     const pendingApiCall =useApiProgress('/api/1.0/auth');
 
