@@ -67,7 +67,5 @@ const Topbar = props => {
                   </nav>
                </div>
               );
-}
-
-
+};
 export default Topbar;

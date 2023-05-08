@@ -12,7 +12,7 @@ const  UserList= () =>{
         number : 0
     });
     const [loadFailure ,setLoadFailure] = useState(false);
-    const pendingApiCall=useApiProgress('/api/1.0/users?page');
+    const pendingApiCall=useApiProgress('get' , '/api/1.0/users?page');
     
     useEffect(() => {
         loadUsers();

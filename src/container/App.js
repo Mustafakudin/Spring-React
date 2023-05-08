@@ -29,5 +29,5 @@ const App = () => {  // react ile logo vs vardı
        <LanugageSelector/>
     </div>
     );
-  }
+  };
 export default App;

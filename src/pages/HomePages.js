@@ -7,4 +7,4 @@ const  HomePages=() =>{  // kullanıcıya özel bi sayfa
         </div>
     ) 
   }
-export default HomePages();
+export default HomePages;

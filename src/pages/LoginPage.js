@@ -25,12 +25,11 @@ const LoginPage =props => {  // hhooks için const cevirdik
         password
       };
       const{history} = props;
-      const{push} =history
+      const{push} =history;
       setError(undefined); // burada error güncel halini tutnus oluyoruz 
      
       try{
-        await dispatch(loginHandler(creds));
-      
+        await dispatch(loginHandler(creds));  
       push('/');
       }
       catch(apiError){
@@ -42,7 +41,7 @@ const LoginPage =props => {  // hhooks için const cevirdik
     }
     const{t} = useTranslation();// sebebi daha basit olması cunku extra bir rapping işlemine yani exportta kullanmdık high herder cmoponentle sarmıs olmadık yani
 
-    const pendingApiCall =useApiProgress('/api/1.0/auth');
+    const pendingApiCall =useApiProgress('post' , '/api/1.0/auth');
 
     const buttonEnabled = username && password; 
     return (

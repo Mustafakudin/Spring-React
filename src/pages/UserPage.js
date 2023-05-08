@@ -9,12 +9,10 @@ import Spinner from '../components/Spinner';
  const UserPage  = () => {
 
     const [user,setUser] = useState({});
-    const[username ] = useParams;  // bunu props.match.params.username almaktansa hook un params objesini kullanıırız
-
     const [notFound ,setNotFound] = useState(false);
-    
+    const[username ] = useParams();  // bunu props.match.params.username almaktansa hook un params objesini kullanıırız
     const[t] = useTranslation();
-    const pendingApiCall = useApiProgress('/api/1.0/users/' + username);  // bu path ait olan requestleri takip edioyr olacagız 
+    const pendingApiCall = useApiProgress('get' , '/api/1.0/users/' + username);  // bu path ait olan requestleri takip edioyr olacagız 
     
     useEffect (() =>{
       setNotFound(false);  // burada ise artık tekrardan false geç diyoruz baska bir kullanıcı girilerse 
@@ -38,6 +36,7 @@ import Spinner from '../components/Spinner';
   };
   if(notFound){
     return(
+    <div className='container'>
       <div className="alert alert-danger text-center">  
         <div>
          <span className="material-symbols-outlined" style={{fontSize:'48px '}}> 
@@ -45,6 +44,7 @@ import Spinner from '../components/Spinner';
           </span>
         </div>
         {t("User not found")} 
+      </div>
      </div>
     )
   }
