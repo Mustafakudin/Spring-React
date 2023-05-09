@@ -49,12 +49,10 @@ import ButtonWithProgress from './ButtonWithProgress';
         
       };
       
-      
-      const pendingApiCall  =  useApiProgress['put', '/api/1.0/users/' + username]
-     // const pathUsername=routeParams.username;  // burada sunu yaptık components yani browserdaki props kazıya kazıya en yukardan en aşaıga ulaştık 
-                          // const loggedInUsername=props.username;   //  value içinden getirebiliriz auten sınıfda vlaue onun içinde state statte yukarda username vs fieldları tutuyor    bunu yapmamızın amacı login olduktan sonra user1 tıkladıgımızda we can edit yazabilsin diye  
-       
-      
+      const onChangeFile  = (event)  =>{
+
+      }
+      const pendingApiCall  =  useApiProgress['put', '/api/1.0/users/' + username]  
       return(
         <div className='card text-center'>
           <div className='card-header'>
@@ -81,6 +79,7 @@ import ButtonWithProgress from './ButtonWithProgress';
               <div>
                 <Input label={t("Change Display Name")} defaultValue={displayName} onClick={(event) => {setUpdateDisplayName(event.target.value)}}
                 /> 
+                <input type='file'  onChange={onChangeFile}/> 
                 <div>
                   <ButtonWithProgress
                       className='btn btn-primary d-inline-flex'
