@@ -10,7 +10,7 @@ import Spinner from '../components/Spinner';
 
     const [user,setUser] = useState({});
     const [notFound ,setNotFound] = useState(false);
-    const[username ] = useParams();  // bunu props.match.params.username almaktansa hook un params objesini kullanıırız
+    const{username} = useParams();  // bunu props.match.params.username almaktansa hook un params objesini kullanıırız
     const[t] = useTranslation();
     const pendingApiCall = useApiProgress('get' , '/api/1.0/users/' + username);  // bu path ait olan requestleri takip edioyr olacagız 
     

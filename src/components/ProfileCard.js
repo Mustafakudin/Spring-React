@@ -8,6 +8,7 @@ import { updateUser } from '../api/apiCalls';
 import { useApiProgress } from '../shared/apiProgress';
 import ButtonWithProgress from './ButtonWithProgress';
 
+
     const ProfileCard = props => {  // eğer login olduysak biz bu kullanıcıların bilgilerini güncelleyebiliriz aksi durumda güncelleyemezi 
                                     // iki veriye ihtiyacımız var birinicis login olan kullanıcı bilgisi ikincisi ise biz suan hangi sayfadayız yani login olan kullanıcıyla bulunudugmuz sayfa birbirine eşit ise  o zaman biz suan kullanıcın login olan sayfasındayız ve editleyebiliriz 
       const[inEditMode , setInEditMode] =useState(false);
@@ -17,6 +18,7 @@ import ButtonWithProgress from './ButtonWithProgress';
       const pathUsername=routeParams.username; 
       const [user,setUser]  =useState({});
       const [editable ,setEditable] = useState(false);
+      const[newImage,setNewImage] = useState();
       useEffect(() =>{
         setUser(props.user)
       },[props.user]) 
@@ -31,6 +33,7 @@ import ButtonWithProgress from './ButtonWithProgress';
       useEffect(() => {
         if(!inEditMode){
           setUpdateDisplayName(undefined);
+          setNewImage(undefined);
         }else{
           setUpdateDisplayName(displayName)
         }
@@ -38,7 +41,8 @@ import ButtonWithProgress from './ButtonWithProgress';
       },[inEditMode,displayName])
       const onClickSave = async () => {
         const body = { 
-          displayName:updateDisplayName
+          displayName:updateDisplayName,
+          image:newImage.split(",")[1]
         };
         try{
           const response = await updateUser(username,body);
@@ -50,6 +54,12 @@ import ButtonWithProgress from './ButtonWithProgress';
       };
       
       const onChangeFile  = (event)  =>{
+        const file = event.target.files[0];
+        const fileReader =new FileReader();
+        fileReader.onloadend=() =>{
+          setNewImage (fileReader.result);
+        }
+        fileReader.readAsDataURL(file);
 
       }
       const pendingApiCall  =  useApiProgress['put', '/api/1.0/users/' + username]  
@@ -60,7 +70,9 @@ import ButtonWithProgress from './ButtonWithProgress';
                 width="200" 
                  height="200"
                  alt={`${user.username} profile `}
-                 image = {image}/>
+                 image = {image}
+                tempImage={newImage}
+                  />
           </div>
             <div className='card body '>
               {!inEditMode&&(
@@ -69,7 +81,7 @@ import ButtonWithProgress from './ButtonWithProgress';
                   {displayName}@{username}
                   </h3>
                   {editable && (<button className='btn btn-success d-inline-flex' onClick={() =>setInEditMode(true)}>
-                  <span className="material-symbols-outlined">edit</span>
+                  <span className="material-symbols-outlined"></span>
                     {t("Edit")}
                   </button>
                   )}
@@ -88,7 +100,7 @@ import ButtonWithProgress from './ButtonWithProgress';
                        pendingApiCall={pendingApiCall}
                        text ={
                         <>
-                        <span className="material-symbols-outlined">save</span>
+                        <span className="material-symbols-outlined"></span>
                         {t("Save")}
                         </>
                        }
@@ -96,7 +108,7 @@ import ButtonWithProgress from './ButtonWithProgress';
                 <button className='btn btn-light d-inline-flex ml-1' 
                 onClick={() =>setInEditMode(false)}
                 disabled={pendingApiCall}>
-                <span className="material-symbols-outlined">close</span>{t("Cancel")}
+                <span className="material-symbols-outlined"></span>{t("Cancel")}
                 </button>
                 </div>
               </div>
